@@ -7,12 +7,6 @@ bool manualPush = false;
 // the setup function runs once when you press reset or power the board
 void setup()
 {
-    Serial.begin(115200);
-    while (!Serial)
-    {
-        ;
-    }
-    Serial.println("START");
     for (int i = 0; i < 4; i++)
     {
         pinMode(btns[i], INPUT_PULLUP);
@@ -27,7 +21,6 @@ void setup()
 
 void manual_mode()
 {
-    Serial.println("manual mode");
     int numActive = 4;
 
     // turn off all leds
@@ -96,7 +89,6 @@ void manual_mode()
             delay(100);
             digitalWrite(switcherPin, HIGH);
             delay(100);
-            Serial.println("Manual PULSE");
 
             while (digitalRead(btns[0]) == LOW)
             {
@@ -127,12 +119,9 @@ void loop()
     if (numActive == 4)
     {
         manual_mode();
-        Serial.println("left manual mode");
     }
     else if (hadKeypress && numActive == 1)
     {
-        Serial.println(newActiveOutput);
-
         digitalWrite(leds[activeOutput], LOW);
         digitalWrite(leds[newActiveOutput], HIGH);
 
@@ -144,7 +133,6 @@ void loop()
             delay(100);
             digitalWrite(switcherPin, HIGH);
             delay(100);
-            Serial.println("PULSE");
 
             i = (i + 1) % 4;
         }
